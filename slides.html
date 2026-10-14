@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deck Maker (Descriptive & Analytical) — ResearchMate</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <style>
+    .type-toggle-btn {
+      padding: 8px 20px;
+      border-radius: var(--pill-radius);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .type-toggle-btn.active {
+      background: var(--c-emerald);
+      color: #ffffff;
+      border-color: var(--c-emerald);
+    }
+    [data-theme="dark"] .type-toggle-btn.active {
+      background: var(--c-gold);
+      color: var(--c-forest);
+      border-color: var(--c-gold);
+    }
+    .upload-dropzone {
+      border: 2px dashed var(--border-light);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--bg-card-subtle);
+      transition: all 0.2s ease;
+    }
+    .upload-dropzone:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .view-switch-btn {
+      padding: 6px 16px;
+      border-radius: var(--pill-radius);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card-subtle);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .view-switch-btn.active {
+      background: var(--c-emerald);
+      color: #ffffff;
+      border-color: var(--c-emerald);
+    }
+    [data-theme="dark"] .view-switch-btn.active {
+      background: var(--c-gold);
+      color: var(--c-forest);
+      border-color: var(--c-gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar-top">
+      <div class="nav-container">
+        <a href="/" class="brand-link">
+          <span class="brand-name">ResearchMate</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="/formatter" class="nav-link">Paper Formatter</a>
+          <a href="/slides" class="nav-link active">Deck Maker</a>
+          <a href="/literature" class="nav-link">Literature Discovery</a>
+          <a href="/ideas" class="nav-link">Idea Lab</a>
+          <a href="/conferences" class="nav-link">Conferences</a>
+          <a href="/history" class="nav-link">History</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Dark/Light Mode">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <a href="/settings" class="icon-btn" aria-label="Settings" title="Settings">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </a>
+          <a href="/profile" class="icon-btn" aria-label="Profile" title="Profile">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-wrapper">
+      <!-- Input & Summarization Configuration -->
+      <section style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--card-radius); padding: 28px; box-shadow: var(--shadow-sm); margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h2 style="font-size: 24px; font-weight: 800; color: var(--text-main);">Deck Maker & Paper Summarizer</h2>
+            <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 4px;">Upload any research paper in PDF or DOCX format. The system summarizes the core insights and generates a customized Descriptive or Analytical slide deck.</p>
+          </div>
+          <!-- View Switcher -->
+          <div style="display: flex; gap: 6px; background: var(--bg-card-subtle); padding: 4px; border-radius: var(--pill-radius); border: 1px solid var(--border-light);">
+            <button id="viewSlidesBtn" class="view-switch-btn active" onclick="switchView('slides')">Slides View</button>
+            <button id="viewNotesBtn" class="view-switch-btn" onclick="switchView('notes')">Deck of Notes View</button>
+          </div>
+        </div>
+
+        <!-- Controls: Presentation Type & Slide Count -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) 180px; gap: 18px; align-items: end; margin-bottom: 20px;">
+          <!-- Strictly 2 Types: Descriptive or Analytical -->
+          <div>
+            <label style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Presentation Type (2 Types Only)</label>
+            <div style="display: flex; gap: 8px; margin-top: 6px;">
+              <button type="button" id="typeDescriptiveBtn" class="type-toggle-btn active" onclick="setType('Descriptive')">
+                Descriptive
+              </button>
+              <button type="button" id="typeAnalyticalBtn" class="type-toggle-btn" onclick="setType('Analytical')">
+                Analytical
+              </button>
+            </div>
+          </div>
+
+          <!-- Slide Count -->
+          <div>
+            <label style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Slide Count</label>
+            <select id="slideCountSelect" class="form-control" style="margin-top: 6px; height: 38px;">
+              <option value="6">6 Slides (Concise Summary)</option>
+              <option value="8" selected>8 Slides (Standard Presentation)</option>
+              <option value="10">10 Slides (In-Depth Defense)</option>
+              <option value="12">12 Slides (Comprehensive Lecture)</option>
+            </select>
+          </div>
+
+          <div>
+            <button id="generateBtn" class="btn-pill-primary" style="width: 100%; justify-content: center; height: 38px;" onclick="handleGenerate()">
+              Build Deck
+            </button>
+          </div>
+        </div>
+
+        <!-- Upload PDF/DOCX or Paste Text -->
+        <div style="display: grid; grid-template-columns: 320px 1fr; gap: 20px;">
+          <!-- File Upload Dropzone -->
+          <div class="upload-dropzone" onclick="document.getElementById('paperFileInput').click()">
+            <input type="file" id="paperFileInput" accept=".pdf,.docx,.tex,.txt" style="display: none;">
+            <div style="font-size: 28px; margin-bottom: 4px;">📤</div>
+            <div style="font-weight: 800; font-size: 13.5px; color: var(--text-main);" id="uploadFileName">Upload Paper (PDF or DOCX)</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Extracts text and auto-summarizes paper</div>
+          </div>
+
+          <!-- Manual Abstract / Text Paste -->
+          <div>
+            <textarea id="paperTextInput" class="form-control" rows="4" style="font-size: 13px;" placeholder="Or paste manuscript abstract, methodology, or sections here to summarize..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- Empty State Notice (No fake demo template) -->
+      <div id="deckEmptyState" style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--card-radius); padding: 60px 40px; text-align: center; color: var(--text-muted); margin-bottom: 24px;">
+        <div style="font-size: 38px; margin-bottom: 10px; opacity: 0.8;">📊</div>
+        <h3 style="font-size: 18px; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">No Presentation Generated Yet</h3>
+        <p style="font-size: 13.5px; max-width: 440px; margin: 0 auto 16px auto; line-height: 1.5;">
+          Upload your research paper above in <b>PDF or DOCX</b> format and select either <b>Descriptive</b> or <b>Analytical</b> mode to generate customized presentation slides and notes.
+        </p>
+      </div>
+
+      <!-- Generated Presentation Deck Workspace -->
+      <section id="deckWorkspace" style="display: none;">
+        <!-- Paper Summary Banner -->
+        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-light); border-radius: 14px; padding: 16px 20px; margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--c-gold);" id="deckTypeBadge">DESCRIPTIVE PRESENTATION</span>
+            <!-- Download Actions -->
+            <div style="display: flex; gap: 8px;">
+              <button id="downloadPdfBtn" class="btn-pill-primary" style="padding: 6px 16px; font-size: 12px;">📥 Download Slide PDF</button>
+              <button id="downloadNotesPdfBtn" class="btn-sm" style="font-size: 12px; background: var(--bg-card);">📝 Download Notes PDF</button>
+            </div>
+          </div>
+          <h3 style="font-size: 16px; font-weight: 800; color: var(--text-main);" id="paperSummaryTitle">Paper Title</h3>
+          <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.45;" id="paperSummaryText"></p>
+        </div>
+
+        <!-- 1. Presentation Slides View -->
+        <div class="slide-canvas theme-emerald" id="slideCanvas">
+          <div>
+            <div class="slide-badge" id="slideCategory">SLIDE CATEGORY</div>
+            <h2 class="slide-title-view" id="slideTitle">Slide Title</h2>
+          </div>
+
+          <div class="slide-content-split">
+            <ul class="slide-bullets-list" id="slideBulletsList"></ul>
+            <div class="slide-callout-card" id="slideCalloutBox">
+              <div class="slide-callout-label">KEY TAKEAWAY</div>
+              <div class="slide-callout-text" id="slideCalloutText"></div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-light); padding-top: 14px; margin-top: 20px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--text-muted);" id="slideDeckTitle">Research Presentation</div>
+            <div style="font-size: 12px; font-weight: 800; color: var(--c-gold);" id="slideCounter">Slide 1 of 8</div>
+          </div>
+        </div>
+
+        <!-- 2. Deck of Notes View -->
+        <div class="note-card-view" id="noteCardView" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 12px;">
+            <div>
+              <span class="btn-sm" style="font-size: 10px; padding: 2px 8px; background: var(--accent-soft); color: var(--accent); font-weight: 800;" id="noteCategory">STUDY MODULE</span>
+              <h2 style="font-size: 20px; font-weight: 800; color: var(--text-main); margin-top: 6px;" id="noteTitle">Notes Card Title</h2>
+            </div>
+            <span style="font-size: 12px; font-weight: 800; color: var(--c-gold);" id="noteCounter">Card 1 of 8</span>
+          </div>
+
+          <div>
+            <h4 style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">Core Study Takeaways:</h4>
+            <ul id="noteBulletsList" style="list-style: disc; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--text-main); line-height: 1.5;"></ul>
+          </div>
+
+          <div style="background: var(--bg-card-subtle); border-radius: 12px; padding: 14px 18px; border-left: 4px solid var(--c-gold);">
+            <div style="font-size: 10px; font-weight: 800; color: var(--c-gold); text-transform: uppercase;">Core Conceptual / Analytical Principle</div>
+            <div style="font-size: 13.5px; color: var(--text-main); margin-top: 4px; font-style: italic;" id="noteFormulaText"></div>
+          </div>
+
+          <div style="background: var(--bg-card-subtle); border-radius: 12px; padding: 14px 18px;">
+            <div style="font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Lecture Commentary & Talking Script</div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px; line-height: 1.5;" id="noteScriptText"></p>
+          </div>
+        </div>
+
+        <!-- Slide Controls Navigation -->
+        <div class="slide-controls-bar">
+          <button id="prevSlideBtn" class="btn-sm" onclick="prevSlide()">◀ Previous</button>
+          <button id="toggleNotesBtn" class="btn-sm" onclick="toggleSpeakerNotes()">🎙️ Speaker Script</button>
+          <button id="fullscreenBtn" class="btn-sm" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+          <button id="nextSlideBtn" class="btn-sm btn-sm-primary" onclick="nextSlide()">Next Slide ▶</button>
+        </div>
+
+        <!-- Speaker Notes Drawer -->
+        <div class="speaker-notes-box" id="speakerNotesBox" style="display: none; margin-top: 14px;">
+          <div style="font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Speaker Script / Talking Points</div>
+          <p id="speakerNotesText" style="font-size: 13px; color: var(--text-main); line-height: 1.5;"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    let currentDeck = null;
+    let currentSlideIdx = 0;
+    let currentType = "Descriptive";
+    let currentView = "slides";
+
+    function setType(type) {
+      currentType = type;
+      document.getElementById("typeDescriptiveBtn").classList.toggle("active", type === "Descriptive");
+      document.getElementById("typeAnalyticalBtn").classList.toggle("active", type === "Analytical");
+      showToast(`Selected mode: ${type}`);
+    }
+
+    function switchView(view) {
+      currentView = view;
+      document.getElementById("viewSlidesBtn").classList.toggle("active", view === "slides");
+      document.getElementById("viewNotesBtn").classList.toggle("active", view === "notes");
+
+      const slideCanvas = document.getElementById("slideCanvas");
+      const noteCard = document.getElementById("noteCardView");
+
+      if (view === "slides") {
+        slideCanvas.style.display = "flex";
+        noteCard.style.display = "none";
+      } else {
+        slideCanvas.style.display = "none";
+        noteCard.style.display = "flex";
+      }
+      renderSlide();
+    }
+
+    // File Upload Handler
+    document.getElementById("paperFileInput").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      document.getElementById("uploadFileName").innerText = `Uploaded: ${file.name}`;
+      showToast(`Summarizing ${file.name} as ${currentType}...`, "success");
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("presentation_type", currentType);
+      formData.append("slide_count", document.getElementById("slideCountSelect").value);
+
+      try {
+        const res = await fetch("/api/slides/upload", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        if (data.slides && data.slides.length > 0) {
+          loadDeck(data);
+          showToast(`Generated ${data.slides.length}-slide ${currentType} deck!`);
+        }
+      } catch (err) {
+        showToast("Error summarizing uploaded paper", "error");
+      }
+    });
+
+    async function handleGenerate() {
+      const text = document.getElementById("paperTextInput").value.trim();
+      const fileInput = document.getElementById("paperFileInput");
+      
+      if (fileInput.files.length > 0) {
+        // Trigger upload
+        fileInput.dispatchEvent(new Event('change'));
+        return;
+      }
+
+      if (!text) {
+        showToast("Please upload a paper (PDF/DOCX) or paste paper text", "error");
+        return;
+      }
+
+      showToast(`Synthesizing ${currentType} presentation deck...`, "success");
+
+      try {
+        const res = await fetch("/api/slides/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: text,
+            presentation_type: currentType,
+            slide_count: document.getElementById("slideCountSelect").value,
+            theme: "emerald"
+          })
+        });
+        const data = await res.json();
+        if (data.slides && data.slides.length > 0) {
+          loadDeck(data);
+          showToast(`Generated ${data.slides.length}-slide ${currentType} deck!`);
+        }
+      } catch (err) {
+        showToast("Error generating presentation", "error");
+      }
+    }
+
+    function loadDeck(deck) {
+      currentDeck = deck;
+      currentSlideIdx = 0;
+
+      document.getElementById("deckEmptyState").style.display = "none";
+      document.getElementById("deckWorkspace").style.display = "block";
+
+      document.getElementById("deckTypeBadge").innerText = `${(deck.presentation_type || currentType).toUpperCase()} PRESENTATION`;
+      document.getElementById("paperSummaryTitle").innerText = deck.title || "Research Paper";
+      document.getElementById("paperSummaryText").innerText = deck.executive_summary || "Core executive takeaways extracted.";
+
+      document.getElementById("downloadPdfBtn").onclick = () => {
+        if (deck.pdf_url) window.location.href = deck.pdf_url;
+      };
+      document.getElementById("downloadNotesPdfBtn").onclick = () => {
+        if (deck.notes_pdf_url) window.location.href = deck.notes_pdf_url;
+      };
+
+      renderSlide();
+    }
+
+    function renderSlide() {
+      if (!currentDeck || !currentDeck.slides[currentSlideIdx]) return;
+      const slide = currentDeck.slides[currentSlideIdx];
+      const total = currentDeck.slides.length;
+
+      // Slides View
+      document.getElementById("slideCategory").innerText = slide.category || "RESEARCH OVERVIEW";
+      document.getElementById("slideTitle").innerText = slide.title || "";
+      document.getElementById("slideCounter").innerText = `Slide ${currentSlideIdx + 1} of ${total}`;
+      document.getElementById("slideDeckTitle").innerText = currentDeck.title || "Presentation";
+
+      const listElem = document.getElementById("slideBulletsList");
+      listElem.innerHTML = "";
+      (slide.bullets || []).forEach(b => {
+        const li = document.createElement("li");
+        li.innerHTML = `<b>${b.lead}:</b> ${b.detail}`;
+        listElem.appendChild(li);
+      });
+
+      document.getElementById("slideCalloutText").innerText = slide.callout || "Key conceptual takeaway";
+      document.getElementById("speakerNotesText").innerText = slide.speaker_notes || "Presenter oral script.";
+
+      // Notes Card View
+      document.getElementById("noteCategory").innerText = slide.category || "STUDY MODULE";
+      document.getElementById("noteTitle").innerText = slide.title || "";
+      document.getElementById("noteCounter").innerText = `Study Card ${currentSlideIdx + 1} of ${total}`;
+
+      const noteList = document.getElementById("noteBulletsList");
+      noteList.innerHTML = "";
+      (slide.bullets || []).forEach(b => {
+        const li = document.createElement("li");
+        li.innerHTML = `<b>${b.lead}:</b> ${b.detail}`;
+        noteList.appendChild(li);
+      });
+
+      document.getElementById("noteFormulaText").innerText = slide.callout || "Key theoretical principle";
+      document.getElementById("noteScriptText").innerText = slide.speaker_notes || "Lecture script.";
+    }
+
+    function prevSlide() {
+      if (currentDeck && currentSlideIdx > 0) {
+        currentSlideIdx--;
+        renderSlide();
+      }
+    }
+
+    function nextSlide() {
+      if (currentDeck && currentSlideIdx < currentDeck.slides.length - 1) {
+        currentSlideIdx++;
+        renderSlide();
+      }
+    }
+
+    function toggleSpeakerNotes() {
+      const box = document.getElementById("speakerNotesBox");
+      box.style.display = (box.style.display === "none") ? "block" : "none";
+    }
+
+    function toggleFullscreen() {
+      const elem = (currentView === "slides") ? document.getElementById("slideCanvas") : document.getElementById("noteCardView");
+      if (!document.fullscreenElement) {
+        elem.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (!currentDeck) return;
+      if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+    });
+  </script>
+</body>
+</html>

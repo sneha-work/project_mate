@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResearchMate AI — Academic Research & Publication Suite</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar (NO left sidebar) -->
+    <header class="navbar-top">
+      <div class="nav-container">
+        <!-- Brand Wordmark -->
+        <a href="/" class="brand-link">
+          <span class="brand-name">ResearchMate</span>
+        </a>
+
+        <!-- Center Nav Links (NO emojis, clean elegant text) -->
+        <nav class="nav-links">
+          <a href="/formatter" class="nav-link">Paper Formatter</a>
+          <a href="/slides" class="nav-link">Deck Maker</a>
+          <a href="/literature" class="nav-link">Literature Discovery</a>
+          <a href="/ideas" class="nav-link">Idea Lab</a>
+          <a href="/conferences" class="nav-link">Conferences</a>
+          <a href="/history" class="nav-link">History</a>
+        </nav>
+
+        <!-- Right Action Icons (Strictly icons only, NO text labels) -->
+        <div class="nav-actions">
+          <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Dark/Light Mode">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <a href="/settings" class="icon-btn" aria-label="Settings" title="Settings">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </a>
+          <a href="/profile" class="icon-btn" aria-label="Profile" title="Profile">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <!-- Luxury Hero Viewport (Image 2 aesthetic) -->
+      <section class="hero-viewport">
+        <div>
+          <div class="hero-tagline">Scholarly Excellence &bull; Peer-Reviewed Rigor &bull; Innovation</div>
+          <h1 class="hero-title">Elevate Your Academic Inquiry</h1>
+          <p class="hero-subtitle">
+            An all-in-one scholarly intelligence suite designed for professors, researchers, and scholars. Format manuscripts into 20 international styles, summarize papers into descriptive or analytical slide decks, discover verified seminal literature, engineer innovative hypotheses, and monitor future conference deadlines.
+          </p>
+          <div class="hero-cta-group">
+            <a href="/formatter" class="btn-pill-primary" style="padding: 12px 28px; font-size: 15px;">Explore Paper Formatter &rarr;</a>
+            <a href="/slides" class="btn-sm" style="padding: 12px 22px; font-size: 14px;">Open Deck Maker</a>
+          </div>
+        </div>
+
+        <!-- Spotlight & Stats Dock -->
+        <div class="hero-bottom-dock">
+          <div class="floating-spotlight-card">
+            <div class="spotlight-thumb">RM</div>
+            <div class="spotlight-details">
+              <div>
+                <div style="font-size: 10.5px; font-weight: 800; color: var(--c-gold); text-transform: uppercase;">Pure Academic Standard</div>
+                <div style="font-size: 14px; font-weight: 800; line-height: 1.3; margin-top: 2px;">20 Verified Journal & Conference Formats</div>
+              </div>
+              <a href="/formatter" style="font-size: 12px; color: var(--c-gold); font-weight: 700; text-decoration: none; margin-top: 4px;">Launch Formatter &rarr;</a>
+            </div>
+          </div>
+
+          <div class="glass-stats-card">
+            <div class="stat-item">
+              <div class="stat-val">20</div>
+              <div class="stat-label">Publication Styles</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">100%</div>
+              <div class="stat-label">Verified Sources</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-val">CORE A*</div>
+              <div class="stat-label">Premier Conferences</div>
+            </div>
+          </div>
+
+          <a href="/ideas" class="dark-accent-card">
+            <div style="font-size: 11px; font-weight: 800; color: var(--c-gold); text-transform: uppercase;">Research Ideation</div>
+            <div style="font-size: 15px; font-weight: 800; line-height: 1.3;">Innovative Research Idea Lab &rarr;</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- 2-3 Inspiring Academic Quotes -->
+      <section class="quotes-banner">
+        <div class="quote-icon-badge">“</div>
+        <div class="quote-content">
+          <div id="quoteText" class="quote-text">
+            “Research is to see what everybody else has seen, and to think what nobody else has thought.”
+          </div>
+          <div id="quoteAuthor" class="quote-author">
+            Albert Szent-Györgyi — Nobel Laureate in Physiology or Medicine
+          </div>
+        </div>
+        <div id="quoteDots" class="quote-timer-dots"></div>
+      </section>
+
+      <!-- 5 Functional Features Grid (Clean titles, NO emojis) -->
+      <section class="features-container">
+        <div class="section-headline">
+          <h2>Core Academic Capabilities</h2>
+          <p>End-to-end scholarly workflows with authentic document downloads, verified sources, and real-time processing.</p>
+        </div>
+
+        <div class="grid-5-features">
+          <!-- Feature 1 -->
+          <a href="/formatter" class="feature-tile">
+            <div>
+              <div class="tile-icon-clean">01</div>
+              <div class="tile-title">Paper Formatter</div>
+              <div class="tile-desc">
+                Upload DOCX, LaTeX (.tex), or PDF manuscripts and convert into 20 popular styles including IEEE, ACM, APA 7, Nature, Elsevier, and Springer. Inspect compilable LaTeX code and download publication-ready PDFs.
+              </div>
+            </div>
+            <div class="tile-footer">
+              <span>Format Manuscript</span> &rarr;
+            </div>
+          </a>
+
+          <!-- Feature 2 -->
+          <a href="/slides" class="feature-tile">
+            <div>
+              <div class="tile-icon-clean">02</div>
+              <div class="tile-title">Deck Maker</div>
+              <div class="tile-desc">
+                Upload research papers in PDF or DOCX format to extract summaries and generate specialized Descriptive or Analytical presentation decks with speaker notes and landscape PDF downloads.
+              </div>
+            </div>
+            <div class="tile-footer">
+              <span>Generate Presentation</span> &rarr;
+            </div>
+          </a>
+
+          <!-- Feature 3 -->
+          <a href="/literature" class="feature-tile">
+            <div>
+              <div class="tile-icon-clean">03</div>
+              <div class="tile-title">Literature Discovery</div>
+              <div class="tile-desc">
+                Search any topic with intelligent autocomplete to discover at least 20 verified papers with DOI links, direct PDF downloads, citation counts, and 1-click BibTeX exports.
+              </div>
+            </div>
+            <div class="tile-footer">
+              <span>Discover Literature</span> &rarr;
+            </div>
+          </a>
+
+          <!-- Feature 4 -->
+          <a href="/ideas" class="feature-tile">
+            <div>
+              <div class="tile-icon-clean">04</div>
+              <div class="tile-title">Idea Lab</div>
+              <div class="tile-desc">
+                Formulate breakthrough research proposals complete with formal hypotheses, literature gap analyses, multi-stage methodologies, and target venue recommendations in PDF.
+              </div>
+            </div>
+            <div class="tile-footer">
+              <span>Explore Proposals</span> &rarr;
+            </div>
+          </a>
+
+          <!-- Feature 5 -->
+          <a href="/conferences" class="feature-tile">
+            <div>
+              <div class="tile-icon-clean">05</div>
+              <div class="tile-title">Conferences Finder</div>
+              <div class="tile-desc">
+                Track premier CORE A* and A academic conferences strictly scheduled after today, with verified physical venues, submission deadlines, and live countdown timers.
+              </div>
+            </div>
+            <div class="tile-footer">
+              <span>Track Conferences</span> &rarr;
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

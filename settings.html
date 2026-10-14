@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings & Ollama Cloud API — ResearchMate AI</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar-top">
+      <div class="nav-container">
+        <a href="/" class="brand-link">
+          <span class="brand-name">ResearchMate</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="/formatter" class="nav-link">Paper Formatter</a>
+          <a href="/slides" class="nav-link">Deck Maker</a>
+          <a href="/literature" class="nav-link">Literature Discovery</a>
+          <a href="/ideas" class="nav-link">Idea Lab</a>
+          <a href="/conferences" class="nav-link">Conferences</a>
+          <a href="/history" class="nav-link">History</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Dark/Light Mode">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <a href="/settings" class="icon-btn active" aria-label="Settings" title="Settings">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </a>
+          <a href="/profile" class="icon-btn" aria-label="Profile" title="Profile">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-wrapper">
+
+      <section style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--card-radius); padding: 32px; box-shadow: var(--shadow-sm); max-width: 800px; margin: 0 auto;">
+        <h2 style="font-size: 22px; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">Settings & Cloud AI Integration</h2>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px;">
+          Configure your Ollama Cloud API Key, custom endpoint, academic model preferences, and authentication defaults.
+        </p>
+
+        <form id="settingsForm" style="display: flex; flex-direction: column; gap: 20px;">
+          <!-- Ollama Cloud API Section -->
+          <div style="background: var(--bg-card-subtle); padding: 20px; border-radius: 16px; border: 1px solid var(--border-light);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <h3 style="font-size: 16px; font-weight: 700; color: var(--text-main);">Ollama Cloud API Configuration</h3>
+              <button type="button" id="testOllamaBtn" class="btn-sm">⚡ Test Connection</button>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Ollama API Key</label>
+                <input type="password" id="ollamaApiKey" class="form-control" style="margin-top: 4px;" placeholder="ollama_sec_..." value="{{ settings.ollama_api_key or '' }}">
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Kept secure in environment variables on the backend. When left empty, the built-in deterministic academic engine ensures 100% functionality.</div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Ollama Host Endpoint</label>
+                  <input type="text" id="ollamaHost" class="form-control" style="margin-top: 4px;" value="{{ settings.ollama_host or 'https://api.ollama.com' }}">
+                </div>
+                <div>
+                  <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Academic Research Model</label>
+                  <select id="ollamaModel" class="form-control" style="margin-top: 4px;">
+                    <option value="llama3.3:70b" selected>Llama 3.3 (70B) — Recommended for Academic Rigor</option>
+                    <option value="qwen2.5:72b">Qwen 2.5 (72B) — Elite Mathematics & Reasoning</option>
+                    <option value="deepseek-r1:70b">DeepSeek R1 — Deep Chain of Thought Ideation</option>
+                    <option value="mistral-large">Mistral Large (2407) — Multilingual Synthesis</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="testStatusBox" style="display: none; padding: 10px 14px; border-radius: 8px; font-size: 12.5px;"></div>
+            </div>
+          </div>
+
+          <!-- Academic Formatting Defaults -->
+          <div style="background: var(--bg-card-subtle); padding: 20px; border-radius: 16px; border: 1px solid var(--border-light);">
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 12px;">Default Manuscript Preferences</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Default Formatting Style</label>
+                <select id="defaultStyle" class="form-control" style="margin-top: 4px;">
+                  <option value="ieee" selected>IEEE Conference / Transactions</option>
+                  <option value="acm">ACM sigconf (Computer Science)</option>
+                  <option value="apa7">APA 7th Edition</option>
+                  <option value="nature">Nature Publication</option>
+                  <option value="springer_lncs">Springer LNCS</option>
+                  <option value="elsevier">Elsevier ScienceDirect</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Visual Theme</label>
+                <select id="themeSelect" class="form-control" style="margin-top: 4px;">
+                  <option value="light" selected>Light Mode (Blush & Burgundy Warm Accent)</option>
+                  <option value="dark">Dark Mode (Obsidian & Deep Rose)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Google OAuth Integration -->
+          <div style="background: var(--bg-card-subtle); padding: 20px; border-radius: 16px; border: 1px solid var(--border-light);">
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 12px;">Google OAuth Client Settings</h3>
+            <div>
+              <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Google Client ID</label>
+              <input type="text" id="googleClientId" class="form-control" style="margin-top: 4px;" placeholder="xxxx-yyyy.apps.googleusercontent.com" value="{{ settings.google_client_id or '' }}">
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Configure to connect your institution's Google Workspace authentication.</div>
+            </div>
+          </div>
+
+          <div>
+            <button type="submit" class="btn-pill-primary" style="padding: 12px 28px;">
+              Save All Settings
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    // Test Ollama Connection
+    document.getElementById("testOllamaBtn").addEventListener("click", async () => {
+      const apiKey = document.getElementById("ollamaApiKey").value.trim();
+      const host = document.getElementById("ollamaHost").value.trim();
+      const statusBox = document.getElementById("testStatusBox");
+
+      statusBox.style.display = "block";
+      statusBox.style.background = "var(--bg-card)";
+      statusBox.style.color = "var(--text-main)";
+      statusBox.innerText = "⏳ Testing connection to Ollama...";
+
+      try {
+        const res = await fetch("/api/settings/test_ollama", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ api_key: apiKey, host: host })
+        });
+        const data = await res.json();
+        if (data.connected) {
+          statusBox.style.background = "#ecfdf5";
+          statusBox.style.color = "#047857";
+          statusBox.innerText = "✅ " + data.message;
+        } else {
+          statusBox.style.background = "#fffbfa";
+          statusBox.style.color = "#5a0f1a";
+          statusBox.innerText = "ℹ️ " + data.message + " (Academic fallback engine active: all 5 features continue working without disruption!)";
+        }
+      } catch (err) {
+        statusBox.style.background = "#fef2f2";
+        statusBox.style.color = "#b91c1c";
+        statusBox.innerText = "⚠️ Network timeout. Built-in academic engine active.";
+      }
+    });
+
+    // Save Settings
+    document.getElementById("settingsForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const payload = {
+        ollama_api_key: document.getElementById("ollamaApiKey").value.trim(),
+        ollama_host: document.getElementById("ollamaHost").value.trim(),
+        ollama_model: document.getElementById("ollamaModel").value,
+        default_style: document.getElementById("defaultStyle").value,
+        theme: document.getElementById("themeSelect").value,
+        google_client_id: document.getElementById("googleClientId").value.trim()
+      };
+
+      try {
+        await fetch("/api/settings/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        showToast("Settings saved successfully!");
+        // Update theme immediately if changed
+        document.documentElement.setAttribute("data-theme", payload.theme);
+        localStorage.setItem("researchmate_theme", payload.theme);
+      } catch (err) {
+        showToast("Error saving settings", "error");
+      }
+    });
+  </script>
+</body>
+</html>

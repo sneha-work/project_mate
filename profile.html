@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scholar Profile — ResearchMate AI</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar-top">
+      <div class="nav-container">
+        <a href="/" class="brand-link">
+          <span class="brand-name">ResearchMate</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="/formatter" class="nav-link">Paper Formatter</a>
+          <a href="/slides" class="nav-link">Deck Maker</a>
+          <a href="/literature" class="nav-link">Literature Discovery</a>
+          <a href="/ideas" class="nav-link">Idea Lab</a>
+          <a href="/conferences" class="nav-link">Conferences</a>
+          <a href="/history" class="nav-link">History</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Dark/Light Mode">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <a href="/settings" class="icon-btn" aria-label="Settings" title="Settings">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </a>
+          <a href="/profile" class="icon-btn active" aria-label="Profile" title="Profile">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-wrapper">
+
+      <div style="display: grid; grid-template-columns: 320px 1fr; gap: 24px;">
+        <!-- Left Profile Card -->
+        <aside style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--card-radius); padding: 28px; text-align: center; box-shadow: var(--shadow-sm);">
+          <img src="{{ user.avatar_url or '/static/images/avatar_default.svg' }}" width="96" height="96" style="border-radius: 50%; border: 3px solid var(--c-dusty-rose); margin-bottom: 12px;">
+          <h2 style="font-size: 20px; font-weight: 800; color: var(--text-main);">{{ user.full_name or 'Guest Scholar' }}</h2>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">{{ user.email or 'scholar@researchmate.ai' }}</div>
+          <span class="btn-sm" style="background: var(--c-blush); color: var(--c-deep-burgundy); font-weight: 700; text-transform: uppercase;">
+            {{ user.role.upper() if user.role else 'RESEARCHER' }}
+          </span>
+
+          <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 20px 0;">
+
+          <!-- Quick Stats -->
+          <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--text-muted);">📄 Papers Formatted:</span>
+              <b style="color: var(--accent);">{{ stats.papers_formatted }}</b>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--text-muted);">📊 Slide Decks:</span>
+              <b style="color: var(--accent);">{{ stats.slides_generated }}</b>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--text-muted);">📚 Saved Literature:</span>
+              <b style="color: var(--accent);">{{ stats.saved_papers }}</b>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--text-muted);">💡 Research Ideas:</span>
+              <b style="color: var(--accent);">{{ stats.saved_ideas }}</b>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+              <span style="color: var(--text-muted);">🏛️ Tracked Conferences:</span>
+              <b style="color: var(--accent);">{{ stats.saved_conferences }}</b>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Profile Editor -->
+        <section style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--card-radius); padding: 28px; box-shadow: var(--shadow-sm);">
+          <h3 style="font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 16px;">Scholar Profile Details</h3>
+          <form id="profileForm" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">Full Name / Academic Title</label>
+              <input type="text" id="profFullName" class="form-control" style="margin-top: 4px;" value="{{ user.full_name or 'Dr. Scholar' }}">
+            </div>
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">Academic Email</label>
+              <input type="email" id="profEmail" class="form-control" style="margin-top: 4px;" value="{{ user.email or 'scholar@researchmate.ai' }}">
+            </div>
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--text-muted);">Institution / University</label>
+              <input type="text" class="form-control" style="margin-top: 4px;" value="Stanford University / MIT Computational Intelligence">
+            </div>
+            <div>
+              <button type="submit" class="btn-pill-primary" style="width: fit-content; padding: 10px 24px;">
+                Save Profile Changes
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    document.getElementById("profileForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const full_name = document.getElementById("profFullName").value.trim();
+      const email = document.getElementById("profEmail").value.trim();
+
+      try {
+        const res = await fetch("/api/profile/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ full_name, email })
+        });
+        showToast("Profile updated successfully!");
+      } catch (err) {
+        showToast("Error updating profile", "error");
+      }
+    });
+  </script>
+</body>
+</html>

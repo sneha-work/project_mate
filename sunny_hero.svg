@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2005/svg" viewBox="0 0 1600 900" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Warm Golden Morning Sun Sky Gradient -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff4e8"/>
+      <stop offset="35%" stop-color="#fedac2"/>
+      <stop offset="70%" stop-color="#f5c2b0"/>
+      <stop offset="100%" stop-color="#ecd5d8"/>
+    </linearGradient>
+    
+    <!-- Morning Sun Glow -->
+    <radialGradient id="sunGlow" cx="65%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#fff8e7" stop-opacity="0.95"/>
+      <stop offset="25%" stop-color="#ffd599" stop-opacity="0.65"/>
+      <stop offset="60%" stop-color="#f8b195" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#f8b195" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Mountain Gradients -->
+    <linearGradient id="mountDist" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e8bfb5"/>
+      <stop offset="100%" stop-color="#d49a8f"/>
+    </linearGradient>
+    
+    <linearGradient id="mountMid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#bd7f74"/>
+      <stop offset="100%" stop-color="#8c4749"/>
+    </linearGradient>
+
+    <!-- Lake Reflection Gradient -->
+    <linearGradient id="lakeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e2c5bc"/>
+      <stop offset="40%" stop-color="#d6b0a7"/>
+      <stop offset="100%" stop-color="#c1918a"/>
+    </linearGradient>
+
+    <!-- Architecture Pavillion Gradient -->
+    <linearGradient id="archGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f7eeea"/>
+      <stop offset="50%" stop-color="#e8dbd5"/>
+      <stop offset="100%" stop-color="#cfbeba"/>
+    </linearGradient>
+
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#e0d4cf" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky Base -->
+  <rect width="1600" height="900" fill="url(#skyGrad)"/>
+
+  <!-- Sun Rays & Glow -->
+  <circle cx="1080" cy="240" r="380" fill="url(#sunGlow)"/>
+  
+  <!-- Subtle Ray Beams -->
+  <polygon points="1080,240 700,900 860,900" fill="#fff" opacity="0.08"/>
+  <polygon points="1080,240 1200,900 1380,900" fill="#fff" opacity="0.06"/>
+  <polygon points="1080,240 350,900 520,900" fill="#fff" opacity="0.05"/>
+
+  <!-- Distant Alpine Mountain Peaks -->
+  <path d="M0 520 L280 340 L520 440 L820 230 L1120 410 L1360 290 L1600 440 L1600 900 L0 900 Z" fill="url(#mountDist)" opacity="0.8"/>
+  
+  <!-- Mid-distance Snow / Light Accents on Peaks -->
+  <polygon points="820,230 870,290 770,290" fill="#fff" opacity="0.55"/>
+  <polygon points="1360,290 1400,340 1320,340" fill="#fff" opacity="0.45"/>
+  <polygon points="280,340 320,390 240,390" fill="#fff" opacity="0.4"/>
+
+  <!-- Midground Mountain Ridges -->
+  <path d="M0 610 L220 510 L480 580 L760 430 L980 540 L1260 460 L1600 570 L1600 900 L0 900 Z" fill="url(#mountMid)" opacity="0.85"/>
+
+  <!-- Tranquil Alpine Lake -->
+  <path d="M0 640 Q800 600 1600 640 L1600 900 L0 900 Z" fill="url(#lakeGrad)"/>
+
+  <!-- Lake Sun Shimmer -->
+  <ellipse cx="1080" cy="670" rx="360" ry="14" fill="#fff" opacity="0.45"/>
+  <ellipse cx="1080" cy="710" rx="420" ry="20" fill="#fff" opacity="0.25"/>
+
+  <!-- Modern Sunny Curved Architectural Villa / Research Sanctuary Pavilion (matching Image 1) -->
+  <g transform="translate(860, 310)">
+    <!-- Terraced Cliff & Base -->
+    <path d="M 120 380 Q 280 340 580 360 L 640 590 L 40 590 Z" fill="#6d4847" opacity="0.9"/>
+    
+    <!-- Curved Roof Slab Upper Tier -->
+    <ellipse cx="380" cy="80" rx="270" ry="55" fill="url(#archGrad)"/>
+    <path d="M 110 80 Q 380 135 650 80 L 650 115 Q 380 170 110 115 Z" fill="#bfaaa4"/>
+    
+    <!-- Glass Floor-to-Ceiling Windows (Upper Level) -->
+    <path d="M 160 115 L 160 215 Q 380 255 600 215 L 600 115 Q 380 155 160 115 Z" fill="url(#glassGrad)"/>
+    
+    <!-- Interior Warm Amber Light in Sanctuary -->
+    <ellipse cx="380" cy="180" rx="190" ry="30" fill="#ffe3b3" opacity="0.55"/>
+    
+    <!-- Sleek Slim Architectural Columns -->
+    <line x1="220" y1="115" x2="220" y2="225" stroke="#4a3b32" stroke-width="4"/>
+    <line x1="340" y1="130" x2="340" y2="240" stroke="#4a3b32" stroke-width="4"/>
+    <line x1="460" y1="130" x2="460" y2="240" stroke="#4a3b32" stroke-width="4"/>
+    <line x1="560" y1="115" x2="560" y2="225" stroke="#4a3b32" stroke-width="4"/>
+
+    <!-- Middle Curved Terrace Deck -->
+    <ellipse cx="380" cy="235" rx="310" ry="65" fill="url(#archGrad)"/>
+    <path d="M 70 235 Q 380 300 690 235 L 690 270 Q 380 335 70 270 Z" fill="#bfaaa4"/>
+    
+    <!-- Lower Glass Living / Scholar Space -->
+    <path d="M 120 270 L 120 370 Q 380 415 640 370 L 640 270 Q 380 315 120 270 Z" fill="url(#glassGrad)"/>
+    
+    <!-- Warm Sun Reflections on Glass Panels -->
+    <polygon points="260,118 360,132 340,240 240,225" fill="#fff" opacity="0.35"/>
+    <polygon points="440,275 540,290 520,380 420,365" fill="#fff" opacity="0.3"/>
+
+    <!-- Infinity Pool / Reflection Basin Edge -->
+    <path d="M 150 375 Q 380 410 610 375 L 630 420 Q 380 455 130 420 Z" fill="#7ba3ad" opacity="0.8"/>
+  </g>
+
+  <!-- Golden Warm Atmospheric Gradient Overlay on Left for Seamless Text Contrast -->
+  <linearGradient id="textVignette" x1="0%" y1="0%" x2="70%" y2="0%">
+    <stop offset="0%" stop-color="#fff8f6" stop-opacity="0.88"/>
+    <stop offset="45%" stop-color="#fff8f6" stop-opacity="0.75"/>
+    <stop offset="75%" stop-color="#fff8f6" stop-opacity="0.3"/>
+    <stop offset="100%" stop-color="#fff8f6" stop-opacity="0"/>
+  </linearGradient>
+  <rect width="1600" height="900" fill="url(#textVignette)"/>
+</svg>

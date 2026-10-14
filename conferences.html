@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verified Academic Conferences Finder — ResearchMate AI</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar-top">
+      <div class="nav-container">
+        <a href="/" class="brand-link">
+          <span class="brand-name">ResearchMate</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="/formatter" class="nav-link">Paper Formatter</a>
+          <a href="/slides" class="nav-link">Deck Maker</a>
+          <a href="/literature" class="nav-link">Literature Discovery</a>
+          <a href="/ideas" class="nav-link">Idea Lab</a>
+          <a href="/conferences" class="nav-link active">Conferences</a>
+          <a href="/history" class="nav-link">History</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Dark/Light Mode">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <a href="/settings" class="icon-btn" aria-label="Settings" title="Settings">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </a>
+          <a href="/profile" class="icon-btn" aria-label="Profile" title="Profile">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-wrapper">
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 14px;">
+        <button id="exportConfsPdfBtn" class="btn-pill-primary">📥 Export Deadlines PDF</button>
+      </div>
+
+      <!-- Conference Search & Filter Header -->
+      <section style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--card-radius); padding: 28px; box-shadow: var(--shadow-sm); margin-bottom: 24px;">
+        <h2 style="font-size: 22px; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">
+          Find Verified Academic Conferences & Submission Deadlines
+        </h2>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+          Verified physical venues, paper deadlines, CORE A*/A rankings, official website links, and publisher proceedings details.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px; align-items: end;">
+          <div class="autocomplete-wrapper">
+            <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Search Conference or Topic</label>
+            <input type="text" id="confSearchInput" class="form-control autocomplete-input" style="height: 42px; margin-top: 4px;" placeholder="e.g. NeurIPS, Computer Vision, Security, Robotics..." value="">
+          </div>
+          <div>
+            <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">CORE Ranking</label>
+            <select id="confRankSelect" class="form-control" style="height: 42px; margin-top: 4px;">
+              <option value="ALL" selected>All Rankings (A*, A, B)</option>
+              <option value="A*">CORE A* Premier Only</option>
+              <option value="A">CORE A Top Tier</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Research Discipline</label>
+            <select id="confFieldSelect" class="form-control" style="height: 42px; margin-top: 4px;">
+              <option value="ALL" selected>All Disciplines</option>
+              <option value="Machine Learning">AI & Machine Learning</option>
+              <option value="Computer Vision">Computer Vision</option>
+              <option value="Natural Language">NLP & Linguistics</option>
+              <option value="Security">Cybersecurity</option>
+              <option value="Systems">Operating Systems</option>
+              <option value="Robotics">Robotics & Control</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conference Cards Container -->
+      <section id="confsContainer">
+        <!-- Rendered dynamically -->
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    async function loadConferences() {
+      const q = document.getElementById("confSearchInput").value.trim();
+      const rank = document.getElementById("confRankSelect").value;
+      const field = document.getElementById("confFieldSelect").value;
+
+      try {
+        const res = await fetch(`/api/conferences/search?q=${encodeURIComponent(q)}&rank=${encodeURIComponent(rank)}&field=${encodeURIComponent(field)}`);
+        const data = await res.json();
+        renderConferences(data.conferences || []);
+      } catch (err) {
+        showToast("Error loading conferences", "error");
+      }
+    }
+
+    function renderConferences(confs) {
+      const container = document.getElementById("confsContainer");
+      container.innerHTML = "";
+
+      if (confs.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-muted);">No conferences matching the selected filters.</div>`;
+        return;
+      }
+
+      confs.forEach(c => {
+        const card = document.createElement("article");
+        card.className = "conf-card";
+        const daysLeft = c.days_remaining;
+        const urgencyClass = (daysLeft >= 0 && daysLeft <= 30) ? "urgent" : "normal";
+        const urgencyText = (daysLeft >= 0) ? `${daysLeft} Days to Deadline` : "Deadline Passed";
+
+        card.innerHTML = `
+          <!-- Rank Badge -->
+          <div class="conf-rank-badge">
+            <div style="font-size: 20px;">${c.core_rank}</div>
+            <span>RANKING</span>
+          </div>
+
+          <!-- Conference Details -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+              <h3 style="font-size: 18px; font-weight: 800; color: var(--text-main);">${c.acronym}</h3>
+              <span class="btn-sm" style="font-size: 11px; padding: 2px 8px;">${c.field}</span>
+            </div>
+            <div style="font-size: 13.5px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px;">${c.name}</div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: var(--text-main); margin-bottom: 10px;">
+              <div>📍 <b>Venue:</b> ${c.venue}</div>
+              <div>📅 <b>Event Dates:</b> ${c.conference_dates}</div>
+              <div>📝 <b>Paper Submission:</b> <span style="color: var(--accent); font-weight: 700;">${c.submission_deadline}</span></div>
+              <div>📢 <b>Acceptance Notification:</b> ${c.notification_date}</div>
+            </div>
+
+            <div style="font-size: 11.5px; color: var(--text-muted);">
+              <b>Publisher:</b> ${c.proceedings} &bull; <b>Acceptance Rate:</b> ~${c.acceptance_rate} &bull; <b>Indexing:</b> ${c.indexing}
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-top: 10px;">
+              <a href="${c.url}" target="_blank" rel="noopener" class="btn-sm">🌐 Official Website</a>
+              <a href="${c.cfp_url}" target="_blank" rel="noopener" class="btn-sm" style="color: var(--accent);">📜 View CFP</a>
+              <button class="btn-sm" onclick='saveConfToCalendar(${JSON.stringify(c)})'>💾 Save to Calendar</button>
+            </div>
+          </div>
+
+          <!-- Countdown Right -->
+          <div class="conf-countdown">
+            <div class="countdown-pill ${urgencyClass}">${urgencyText}</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Abstract: ${c.abstract_deadline}</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Camera-Ready: ${c.camera_ready}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function saveConfToCalendar(conf) {
+      try {
+        const res = await fetch("/api/library/save_conf", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(conf)
+        });
+        showToast(`Saved ${conf.acronym} to your Calendar!`);
+      } catch (err) {
+        showToast("Error saving conference", "error");
+      }
+    }
+
+    document.getElementById("confSearchInput").addEventListener("input", loadConferences);
+    document.getElementById("confRankSelect").addEventListener("change", loadConferences);
+    document.getElementById("confFieldSelect").addEventListener("change", loadConferences);
+
+    document.getElementById("exportConfsPdfBtn").addEventListener("click", async () => {
+      showToast("Generating verified conference calendar PDF...");
+      try {
+        const res = await fetch("/api/conferences/export_pdf");
+        const data = await res.json();
+        if (data.download_url) {
+          window.location.href = data.download_url;
+          showToast("Downloaded Conference Calendar PDF!");
+        }
+      } catch (e) {
+        showToast("Export failed", "error");
+      }
+    });
+
+    window.addEventListener("load", loadConferences);
+  </script>
+</body>
+</html>

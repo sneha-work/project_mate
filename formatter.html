@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paper Formatter (20 Styles) — ResearchMate</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <style>
+    .style-chip-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .style-chip {
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      border: 1px solid var(--border-light);
+      background: var(--bg-card-subtle);
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.25;
+      color: var(--text-muted);
+    }
+    .style-chip:hover {
+      border-color: var(--c-gold);
+      color: var(--accent);
+    }
+    .style-chip.selected {
+      background: var(--c-emerald);
+      color: #ffffff;
+      border-color: var(--c-emerald);
+    }
+    [data-theme="dark"] .style-chip.selected {
+      background: var(--c-gold);
+      color: var(--c-forest);
+      border-color: var(--c-gold);
+    }
+    .upload-dropzone {
+      border: 2px dashed var(--border-light);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--bg-card-subtle);
+      transition: all 0.2s ease;
+    }
+    .upload-dropzone:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .view-tab-btn {
+      padding: 6px 16px;
+      border-radius: var(--pill-radius);
+      border: 1px solid var(--border-light);
+      background: var(--bg-card-subtle);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .view-tab-btn.active {
+      background: var(--c-emerald);
+      color: #ffffff;
+      border-color: var(--c-emerald);
+    }
+    [data-theme="dark"] .view-tab-btn.active {
+      background: var(--c-gold);
+      color: var(--c-forest);
+      border-color: var(--c-gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar-top">
+      <div class="nav-container">
+        <a href="/" class="brand-link">
+          <span class="brand-name">ResearchMate</span>
+        </a>
+
+        <nav class="nav-links">
+          <a href="/formatter" class="nav-link active">Paper Formatter</a>
+          <a href="/slides" class="nav-link">Deck Maker</a>
+          <a href="/literature" class="nav-link">Literature Discovery</a>
+          <a href="/ideas" class="nav-link">Idea Lab</a>
+          <a href="/conferences" class="nav-link">Conferences</a>
+          <a href="/history" class="nav-link">History</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Dark/Light Mode">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <a href="/settings" class="icon-btn" aria-label="Settings" title="Settings">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </a>
+          <a href="/profile" class="icon-btn" aria-label="Profile" title="Profile">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-wrapper">
+      <div class="formatter-workspace">
+        <!-- Sidebar Controls -->
+        <aside class="formatter-sidebar">
+          <div>
+            <h3 style="font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">1. Select Academic Style (20)</h3>
+            <div class="style-chip-grid" id="styleChipGrid"></div>
+          </div>
+
+          <!-- Style Info Card -->
+          <div id="styleInfoCard" style="background: var(--bg-card-subtle); border-radius: 12px; padding: 12px; border: 1px solid var(--border-light); font-size: 12px;">
+            <div style="font-weight: 800; color: var(--accent); margin-bottom: 4px;" id="infoStyleName">IEEE Conference / Transactions</div>
+            <div id="infoStyleDesc" style="color: var(--text-muted); margin-bottom: 6px;">Two-column format with Roman numeral section numbering.</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <span class="btn-sm" style="font-size: 10px; padding: 2px 8px;" id="infoColumns">2 Columns</span>
+              <span class="btn-sm" style="font-size: 10px; padding: 2px 8px;" id="infoCitation">[1] Bracketed</span>
+              <span class="btn-sm" style="font-size: 10px; padding: 2px 8px;" id="infoFont">Times-Roman</span>
+            </div>
+          </div>
+
+          <!-- Upload Manuscript -->
+          <div>
+            <h3 style="font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">2. Upload Manuscript</h3>
+            <div class="upload-dropzone" onclick="document.getElementById('fileUploadInput').click()">
+              <input type="file" id="fileUploadInput" accept=".docx,.tex,.pdf,.txt" style="display: none;">
+              <div style="font-size: 24px; margin-bottom: 4px;">📤</div>
+              <div style="font-weight: 700; font-size: 13px; color: var(--text-main);" id="uploadBtnText">Upload DOCX, LaTeX (.tex), or PDF</div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;" id="uploadSubText">Preserves exact headings, authors & content (No additions)</div>
+            </div>
+          </div>
+
+          <!-- Paste Option -->
+          <div>
+            <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Or Paste LaTeX / Text Content</label>
+            <textarea id="pasteTextInput" class="form-control" rows="4" style="margin-top: 4px; font-size: 12px;" placeholder="Paste LaTeX code (\begin{document}...) or manuscript text here..."></textarea>
+            <button id="formatPastedBtn" class="btn-sm btn-sm-primary" style="margin-top: 8px; width: 100%; justify-content: center;">Format Pasted Content</button>
+          </div>
+
+          <!-- Download Action Bar -->
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto;">
+            <button id="downloadPdfSidebarBtn" class="btn-pill-primary" style="justify-content: center;">📥 Download Formatted PDF</button>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <button id="downloadDocxBtn" class="btn-sm" style="justify-content: center;">📄 Word (.docx)</button>
+              <button id="downloadTexBtn" class="btn-sm" style="justify-content: center;">📑 LaTeX (.tex)</button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Preview Pane -->
+        <section class="formatter-preview-pane">
+          <div class="preview-toolbar">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-weight: 800; font-size: 14px; color: var(--text-main);">Document Output</span>
+              <span id="previewStyleBadge" class="btn-sm" style="font-size: 11px; background: var(--accent-soft); color: var(--accent); font-weight: 700;">IEEE Standard</span>
+            </div>
+            <!-- View Mode Switcher: Formatted Paper vs LaTeX Code -->
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button id="tabPreviewBtn" class="view-tab-btn active" onclick="switchOutputTab('preview')">Document View</button>
+              <button id="tabLatexBtn" class="view-tab-btn" onclick="switchOutputTab('latex')">LaTeX Code (.tex)</button>
+              <button id="copyLatexBtn" class="btn-sm" style="font-size: 11px; display: none;" onclick="copyLatexCode()">📋 Copy LaTeX</button>
+            </div>
+          </div>
+
+          <!-- Empty Initial State (No fake demo template displayed) -->
+          <div id="emptyStateBox" style="padding: 80px 40px; text-align: center; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+            <div style="font-size: 42px; margin-bottom: 12px; opacity: 0.8;">📄</div>
+            <h3 style="font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">No Manuscript Loaded Yet</h3>
+            <p style="font-size: 13.5px; max-width: 440px; line-height: 1.5; margin-bottom: 20px;">
+              Please upload your paper in <b>DOCX, LaTeX (.tex), or PDF</b> format, or paste your draft in the sidebar. ResearchMate AI will parse every heading, author, and text exactly according to your file with zero additions.
+            </p>
+            <button class="btn-pill-primary" onclick="document.getElementById('fileUploadInput').click()">Select File to Format</button>
+          </div>
+
+          <!-- Live Rendered Document View -->
+          <div class="preview-scroll-viewport" id="viewportContainer" style="display: none;">
+            <article class="academic-sheet two-column" id="academicSheet">
+              <div class="sheet-header-block">
+                <div style="font-size: 8pt; text-transform: uppercase; letter-spacing: 1px; color: var(--c-emerald); margin-bottom: 6pt; font-weight: bold;" id="sheetHeaderBanner">
+                  IEEE CONFERENCE ON COMPUTATIONAL RESEARCH &bull; VERIFIED FORMAT
+                </div>
+                <h1 class="sheet-title" id="sheetTitle">Manuscript Title</h1>
+                <div class="sheet-authors" id="sheetAuthors">Author Names</div>
+              </div>
+
+              <!-- Abstract -->
+              <div class="sheet-abstract-box" id="sheetAbstractBox" style="display: none;">
+                <b><i>Abstract</i>—<span id="sheetAbstractText"></span></b>
+                <div style="margin-top: 4pt; font-style: normal;" id="sheetKeywordsRow">
+                  <b><i>Keywords</i>—<span id="sheetKeywords"></span></b>
+                </div>
+              </div>
+
+              <!-- Sections Content -->
+              <div id="sheetSectionsContainer"></div>
+
+              <!-- References -->
+              <div id="sheetReferencesContainer" style="display: none;">
+                <div class="sheet-section-title" id="sheetRefTitle">REFERENCES</div>
+                <div id="sheetRefList" style="font-size: 8pt; line-height: 1.25; color: #334155;"></div>
+              </div>
+            </article>
+
+            <!-- LaTeX Code View -->
+            <div id="latexCodeContainer" style="display: none; width: 100%; max-width: 900px;">
+              <pre class="latex-code-box" id="latexCodeView">% Compilable LaTeX Code will appear here...</pre>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/main.js"></script>
+  <script>
+    const STYLES_DATA = [
+      { id: "ieee", name: "IEEE Conference", cols: 2, font: "Times-Roman", citation: "[1] Bracketed", desc: "Two-column IEEE Transactions/Conference standard with Roman headings." },
+      { id: "acm", name: "ACM (sigconf)", cols: 2, font: "Helvetica", citation: "[1] Bracketed", desc: "Association for Computing Machinery proceedings with bold headings." },
+      { id: "apa7", name: "APA 7th Edition", cols: 1, font: "Times-Roman", citation: "Author-date", desc: "American Psychological Association format with 1-inch margins." },
+      { id: "harvard", name: "Harvard Style", cols: 1, font: "Times-Roman", citation: "Author-year", desc: "Classic author-year referencing with alphabetical bibliography." },
+      { id: "springer_lncs", name: "Springer LNCS", cols: 1, font: "Times-Roman", citation: "[1] Numbered", desc: "Lecture Notes in Computer Science compact single-column format." },
+      { id: "elsevier", name: "Elsevier", cols: 2, font: "Times-Roman", citation: "Author-date", desc: "ScienceDirect journal standard with structured author header." },
+      { id: "nature", name: "Nature", cols: 1, font: "Times-Roman", citation: "Superscripts 1,2", desc: "Bold introductory synopsis and compact superscript referencing." },
+      { id: "mla9", name: "MLA 9th Edition", cols: 1, font: "Times-Roman", citation: "Author-page", desc: "Modern Language Association format with Works Cited section." },
+      { id: "chicago", name: "Chicago 17th", cols: 1, font: "Times-Roman", citation: "Author-Date", desc: "Chicago Manual of Style academic book & journal layout." },
+      { id: "vancouver", name: "Vancouver Style", cols: 1, font: "Helvetica", citation: "(1) Sequential", desc: "Uniform requirements for biomedical journals and clinical science." },
+      { id: "cell", name: "Cell Press", cols: 1, font: "Helvetica", citation: "Author-date", desc: "Structured sections: Summary, Results, Discussion, STAR Methods." },
+      { id: "oxford", name: "Oxford Academic", cols: 1, font: "Times-Roman", citation: "Author-date", desc: "OUP journal format with elegant serif typography and running rules." },
+      { id: "mdpi", name: "MDPI Open Access", cols: 1, font: "Helvetica", citation: "[1] Numbered", desc: "Open access format with blue headers and structured abstract." },
+      { id: "aip", name: "AIP Physics", cols: 2, font: "Times-Roman", citation: "Superscripts", desc: "American Institute of Physics two-column format with compact equations." },
+      { id: "frontiers", name: "Frontiers Science", cols: 1, font: "Helvetica", citation: "Author-date", desc: "Clean modern layout with author contributions block." },
+      { id: "plos_one", name: "PLOS ONE", cols: 1, font: "Times-Roman", citation: "[1] Bracketed", desc: "Public Library of Science format with Open Data availability statement." },
+      { id: "wiley", name: "Wiley Online", cols: 1, font: "Times-Roman", citation: "Numbered", desc: "Classic Wiley journal format with vertical section dividers." },
+      { id: "taylor_francis", name: "Taylor & Francis", cols: 1, font: "Times-Roman", citation: "Author-date", desc: "Standard UK/US journal format with running headers." },
+      { id: "cambridge", name: "Cambridge Univ", cols: 1, font: "Times-Roman", citation: "Author-date", desc: "Refined British academic press design with classic typography." },
+      { id: "emerald", name: "Emerald Publishing", cols: 1, font: "Helvetica", citation: "Harvard", desc: "Structured abstract: Purpose, Methodology, Findings, Originality." }
+    ];
+
+    let currentStyleId = "ieee";
+    let currentPaperData = null;
+    let currentLatexCode = "";
+    let currentTab = "preview";
+
+    const chipGrid = document.getElementById("styleChipGrid");
+    STYLES_DATA.forEach(s => {
+      const chip = document.createElement("button");
+      chip.className = `style-chip ${s.id === currentStyleId ? 'selected' : ''}`;
+      chip.innerText = s.name;
+      chip.addEventListener("click", () => selectStyle(s.id));
+      chipGrid.appendChild(chip);
+    });
+
+    function selectStyle(styleId) {
+      currentStyleId = styleId;
+      const s = STYLES_DATA.find(x => x.id === styleId);
+      if (!s) return;
+
+      document.querySelectorAll(".style-chip").forEach(c => {
+        c.classList.toggle("selected", c.innerText === s.name);
+      });
+
+      document.getElementById("infoStyleName").innerText = s.name;
+      document.getElementById("infoStyleDesc").innerText = s.desc;
+      document.getElementById("infoColumns").innerText = s.cols === 2 ? "2 Columns" : "1 Column";
+      document.getElementById("infoCitation").innerText = s.citation;
+      document.getElementById("infoFont").innerText = s.font;
+      document.getElementById("previewStyleBadge").innerText = s.name;
+
+      const sheet = document.getElementById("academicSheet");
+      if (s.cols === 2) sheet.classList.add("two-column");
+      else sheet.classList.remove("two-column");
+
+      sheet.style.fontFamily = (s.font === "Helvetica") ? "var(--font-main)" : "var(--font-serif)";
+      document.getElementById("sheetHeaderBanner").innerText = `${s.name.toUpperCase()} • VERIFIED PUBLICATION STANDARD`;
+      document.getElementById("sheetRefTitle").innerText = (s.id === "mla9") ? "WORKS CITED" : "REFERENCES";
+
+      if (currentPaperData) {
+        // Regenerate LaTeX code for the new style
+        updateExportForStyle();
+      }
+      showToast(`Selected style: ${s.name}`);
+    }
+
+    function switchOutputTab(tab) {
+      currentTab = tab;
+      document.getElementById("tabPreviewBtn").classList.toggle("active", tab === "preview");
+      document.getElementById("tabLatexBtn").classList.toggle("active", tab === "latex");
+      
+      const sheet = document.getElementById("academicSheet");
+      const latexBox = document.getElementById("latexCodeContainer");
+      const copyBtn = document.getElementById("copyLatexBtn");
+
+      if (tab === "preview") {
+        sheet.style.display = "block";
+        latexBox.style.display = "none";
+        copyBtn.style.display = "none";
+      } else {
+        sheet.style.display = "none";
+        latexBox.style.display = "block";
+        copyBtn.style.display = "inline-flex";
+      }
+    }
+
+    function copyLatexCode() {
+      if (!currentLatexCode) return;
+      navigator.clipboard.writeText(currentLatexCode).then(() => {
+        showToast("Copied LaTeX code to clipboard!");
+      });
+    }
+
+    // File Upload Handler
+    document.getElementById("fileUploadInput").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      document.getElementById("uploadBtnText").innerText = `Uploaded: ${file.name}`;
+      showToast(`Parsing ${file.name}...`, "success");
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("style_id", currentStyleId);
+
+      try {
+        const res = await fetch("/api/formatter/parse", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        if (data.paper) {
+          applyPaperData(data.paper, data.latex_code);
+          showToast(`Parsed and formatted ${file.name} successfully!`);
+        }
+      } catch (err) {
+        showToast("Error processing file", "error");
+      }
+    });
+
+    // Paste Content Handler
+    document.getElementById("formatPastedBtn").addEventListener("click", () => {
+      const text = document.getElementById("pasteTextInput").value.trim();
+      if (!text) {
+        showToast("Please paste manuscript or LaTeX text", "error");
+        return;
+      }
+      showToast("Formatting pasted text...", "success");
+
+      const blob = new Blob([text], { type: "text/plain" });
+      const file = new File([blob], "pasted_manuscript.txt");
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("style_id", currentStyleId);
+
+      fetch("/api/formatter/parse", { method: "POST", body: formData })
+        .then(r => r.json())
+        .then(data => {
+          if (data.paper) {
+            applyPaperData(data.paper, data.latex_code);
+            showToast("Pasted manuscript formatted successfully!");
+          }
+        })
+        .catch(() => showToast("Error parsing pasted content", "error"));
+    });
+
+    function applyPaperData(paper, latexCode) {
+      currentPaperData = paper;
+      currentLatexCode = latexCode || "";
+
+      document.getElementById("emptyStateBox").style.display = "none";
+      document.getElementById("viewportContainer").style.display = "flex";
+
+      document.getElementById("sheetTitle").innerText = paper.title || "Untitled Paper";
+      
+      const authorsHtml = (paper.authors || []).map(a => {
+        if (a.affiliation) {
+          return `<div style="display: inline-block; margin: 6px 14px; vertical-align: top; max-width: 280px; text-align: center;"><div style="font-weight: 700; font-size: 10.5pt; color: #0f172a;">${a.name}</div><div style="font-size: 8.5pt; color: #475569; line-height: 1.25; margin-top: 2px;">${a.affiliation}</div></div>`;
+        }
+        return `<span style="font-weight: 700; font-size: 10.5pt; margin: 0 8px;">${a.name}</span>`;
+      }).join("");
+      document.getElementById("sheetAuthors").innerHTML = authorsHtml || "Author";
+
+      if (paper.abstract) {
+        document.getElementById("sheetAbstractBox").style.display = "block";
+        document.getElementById("sheetAbstractText").innerText = paper.abstract;
+      } else {
+        document.getElementById("sheetAbstractBox").style.display = "none";
+      }
+
+      if (paper.keywords && paper.keywords.length > 0) {
+        document.getElementById("sheetKeywordsRow").style.display = "block";
+        document.getElementById("sheetKeywords").innerText = paper.keywords.join(", ");
+      } else {
+        document.getElementById("sheetKeywordsRow").style.display = "none";
+      }
+
+      let secHtml = "";
+      (paper.sections || []).forEach(s => {
+        secHtml += `<div class="sheet-section-title">${s.heading}</div>`;
+        (s.content || "").split("\n\n").forEach(p => {
+          if (p.trim()) secHtml += `<p class="sheet-body-p">${p.trim()}</p>`;
+        });
+      });
+      document.getElementById("sheetSectionsContainer").innerHTML = secHtml;
+
+      if (paper.references && paper.references.length > 0) {
+        document.getElementById("sheetReferencesContainer").style.display = "block";
+        let refHtml = "";
+        paper.references.forEach(r => {
+          refHtml += `<p style="margin-bottom: 4pt;">${r}</p>`;
+        });
+        document.getElementById("sheetRefList").innerHTML = refHtml;
+      } else {
+        document.getElementById("sheetReferencesContainer").style.display = "none";
+      }
+
+      document.getElementById("latexCodeView").innerText = currentLatexCode;
+    }
+
+    async function updateExportForStyle() {
+      if (!currentPaperData) return;
+      try {
+        const res = await fetch("/api/formatter/export", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            style_id: currentStyleId,
+            format: "tex",
+            paper: currentPaperData
+          })
+        });
+        const data = await res.json();
+        if (data.latex_code) {
+          currentLatexCode = data.latex_code;
+          document.getElementById("latexCodeView").innerText = currentLatexCode;
+        }
+      } catch (e) {}
+    }
+
+    async function triggerDownload(format = "pdf") {
+      if (!currentPaperData) {
+        showToast("Please upload a paper first", "error");
+        return;
+      }
+      showToast(`Generating ${format.toUpperCase()} for ${currentStyleId.toUpperCase()}...`);
+      try {
+        const res = await fetch("/api/formatter/export", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            style_id: currentStyleId,
+            format: format,
+            paper: currentPaperData
+          })
+        });
+        const data = await res.json();
+        if (data.download_url) {
+          window.location.href = data.download_url;
+          showToast(`Downloaded ${format.toUpperCase()}!`);
+        }
+      } catch (err) {
+        showToast("Export failed", "error");
+      }
+    }
+
+    document.getElementById("downloadPdfSidebarBtn").addEventListener("click", () => triggerDownload("pdf"));
+    document.getElementById("downloadDocxBtn").addEventListener("click", () => triggerDownload("docx"));
+    document.getElementById("downloadTexBtn").addEventListener("click", () => triggerDownload("tex"));
+  </script>
+</body>
+</html>
